@@ -1,27 +1,89 @@
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Web Based Message Broadcast System</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/app.js"></script>
 </head>
 <body>
-
 <div class="container">
-    <h1>Web Based Message Broadcast System</h1>
-    <p>Blah blah blah</p>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Web Based Message Broadcast System</h1>
+            <form id="sendMessage">
+                <div class="form-group">
+                    <label class="control-label" for="msg">
+                        Enter a message
+                    </label>
+                    <input type="text" class="form-control" id="msg" placeholder="Enter message" name="message">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">
+                        Submit
+                    </button>
+                </div>
+            </form>
+            <hr />
+        </div>
+    </div>
+    <div id="main-content">
+        <div class="row">
+            <div class="col-md-6">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="connect">
+                            WebSocket connection:
+                        </label>
+                        <button id="connect" class="btn btn-default" type="submit">
+                            Connect
+                        </button>
+                        <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">
+                            Disconnect
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="name">
+                            Type 1 for history, any other number otherwise
+                        </label>
+                        <input type="number" id="history" class="form-control" value=0 placeholder=1>
+                    </div>
+                    <button id="send" class="btn btn-default" type="submit">
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table id="conversation" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>chat</th>
+                    </tr>
+                    </thead>
+                    <tbody id="chat">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-
 </body>
 </html>

@@ -1,12 +1,26 @@
 package org.broadcast.controllers;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.broadcast.models.Message;
+import org.broadcast.services.RedisMessagePublisher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HomeController {
-    @RequestMapping("/home")
-    public String index() {
-        return "static/index.html";
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+    private static final String TAG = "[Controller]";
+
+    @Autowired
+    private RedisMessagePublisher redisMessagePublisher;
+
+    @RequestMapping(value = "/msg", produces = "application/json", method = RequestMethod.POST)
+    public void sendMessage(@RequestBody Message message) {
+        logger.info("{} POST /msg {}", TAG, message);
+        redisMessagePublisher.publish(message);
     }
 }
