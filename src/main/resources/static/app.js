@@ -1,4 +1,30 @@
-var stompClient = null;
+var stompClient = {
+        client: null,
+        socket: null,
+        connect: function () {
+            this.socket = new SockJS('/broadcast-websocket');
+            this.client = Stomp.over(this.socket);
+            this.client.connect({}, function (frame) {
+                stompClient.client.subscribe('/topic/chat', function (events) {
+                    stompClient.consume(events);
+                    console.log(greeting);
+                    console.log(JSON.stringify(greeting));
+                    showChat(JSON.parse(greeting.body).message);
+                });
+            });
+        },
+        consume: function (raw) {
+           console.log(raw);
+        },
+        close: function () {
+            if (this.client != null && this.client != undefined) {
+                this.client.unsubscribe('/topic/chat');
+                this.client.disconnect();
+                this.client = null;
+            }
+        }
+    };
+
 
 function sendData(form) {
 	var XHR = new XMLHttpRequest();
@@ -43,24 +69,12 @@ function setConnected(connected) {
 }
 
 function connect() {
-	var socket = new SockJS('/broadcast-websocket');
-	stompClient = Stomp.over(socket);
-	stompClient.connect({}, function(frame) {
-		setConnected(true);
-		console.log('Connected: ' + frame);
-		stompClient.subscribe('/topic/chat', function(greeting) {
-			console.log(greeting);
-			console.log(JSON.stringify(greeting));
-			showChat(JSON.parse(greeting.body).message);
-		});
-	});
+	stompClient.connect();
+	console.log("Connected");
 }
 
 function disconnect() {
-	if (stompClient !== null) {
-		stompClient.disconnect();
-	}
-	setConnected(false);
+	stompClient.close();
 	console.log("Disconnected");
 }
 
