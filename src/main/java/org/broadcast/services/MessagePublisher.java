@@ -1,7 +1,8 @@
 package org.broadcast.services;
 
 import org.broadcast.models.Message;
+import org.broadcast.models.MessageResponse;
 
 public interface MessagePublisher {
-    void publish(final Message message);
+    MessageResponse publish(final Message message);
 }

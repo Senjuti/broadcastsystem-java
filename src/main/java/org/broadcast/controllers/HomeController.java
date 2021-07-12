@@ -1,6 +1,7 @@
 package org.broadcast.controllers;
 
 import org.broadcast.models.Message;
+import org.broadcast.models.MessageResponse;
 import org.broadcast.services.RedisMessagePublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,8 @@ public class HomeController {
     private RedisMessagePublisher redisMessagePublisher;
 
     @RequestMapping(value = "/msg", produces = "application/json", method = RequestMethod.POST)
-    public void sendMessage(@RequestBody Message message) {
+    public MessageResponse sendMessage(@RequestBody Message message) {
         logger.info("{} POST /msg {}", TAG, message);
-        redisMessagePublisher.publish(message);
+        return redisMessagePublisher.publish(message);
     }
 }
