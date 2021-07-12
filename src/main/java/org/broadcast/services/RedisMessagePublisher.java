@@ -34,7 +34,7 @@ public class RedisMessagePublisher implements MessagePublisher {
         ObjectMapper mapper = new ObjectMapper();
         try {
             redisTemplate.convertAndSend(topic.getTopic(), mapper.writeValueAsString(message));
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             logger.error(TAG + " : ", e);
             return new MessageResponse(message.getId(), false, MessageType.RESPONSE);
         }

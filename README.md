@@ -4,7 +4,17 @@ A simple web based message broadcast system using Java and Spring Boot.
 
 For an explanation of the code, check out the Medium post.
 
-----
+## How to Run
+
+In IntelliJ, your run configuration should look like this:
+![](src/main/resources/images/configuration.PNG)
+
+Run Application.java
+
+In your browser, open http://localhost:8080. You should see this:
+![](src/main/resources/images/ui.PNG)
+
+## Instructions
 
 Build the application in Java/Scala using Play! / Springboot, ensure we can run it (build system / needed scripts / documentation).
 
