@@ -17,7 +17,6 @@ import java.util.List;
 @Controller
 public class ChatController {
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
-    private static final String TAG = "[ChatController]";
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
@@ -27,8 +26,8 @@ public class ChatController {
 
     @MessageMapping(ConfigValues.GET_MSG_URL)
     @SendTo(ConfigValues.TOPIC_CHAT_URL)
-    public Message incomingRequest(HistoryRequest history) throws Exception {
-        logger.info("{} Incoming Request in websocket {} ", TAG, history);
+    public Message incomingRequest(HistoryRequest history) {
+        logger.info("Incoming Request in websocket {} ", history);
 
         if(history.getHistory() == 1) {
             System.out.println(messageDAO.getNumberOfMessages());
@@ -41,7 +40,7 @@ public class ChatController {
     }
 
     public void firechat(Message message) {
-        logger.info("{} Sending message to Websocket {} ", TAG, message);
+        logger.info("Sending message to Websocket {} ", message);
         simpMessagingTemplate.convertAndSend(ConfigValues.TOPIC_CHAT_URL, message);
     }
 

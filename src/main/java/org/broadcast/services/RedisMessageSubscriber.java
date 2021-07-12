@@ -12,10 +12,9 @@ public class RedisMessageSubscriber implements MessageListener {
     public static List<String> messageList = new ArrayList<>();
 
     private static final Logger logger = LoggerFactory.getLogger(RedisMessagePublisher.class);
-    private static final String TAG = "[Subscriber]";
 
     public void onMessage(final Message message, byte[] pattern) {
         messageList.add(message.toString());
-        logger.info("{} Message received: {}", TAG, message);
+        logger.info("Message received: {}", message);
     }
 }

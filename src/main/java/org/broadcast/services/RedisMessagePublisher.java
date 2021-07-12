@@ -15,13 +15,12 @@ import org.slf4j.LoggerFactory;
 @Service
 public class RedisMessagePublisher implements MessagePublisher {
     private static final Logger logger = LoggerFactory.getLogger(RedisMessagePublisher.class);
-    private static final String TAG = "[Publisher]";
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    private ChannelTopic topic;
+    private final ChannelTopic topic;
 
     public RedisMessagePublisher(final RedisTemplate<String, Object> redisTemplate, final ChannelTopic topic) {
         this.redisTemplate = redisTemplate;
@@ -29,13 +28,13 @@ public class RedisMessagePublisher implements MessagePublisher {
     }
 
     public MessageResponse publish(final Message message) {
-        logger.info("{} Writing message to Redis {}", TAG, message);
+        logger.info("Writing message to Redis: {}", message);
 
         ObjectMapper mapper = new ObjectMapper();
         try {
             redisTemplate.convertAndSend(topic.getTopic(), mapper.writeValueAsString(message));
         } catch (Exception e) {
-            logger.error(TAG + " : ", e);
+            e.printStackTrace();
             return new MessageResponse(message.getId(), false, MessageType.RESPONSE);
         }
 

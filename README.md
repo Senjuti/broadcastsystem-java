@@ -1,4 +1,4 @@
-#Web Based Message Broadcast System
+# Web Based Message Broadcast System
 
 A simple web based message broadcast system using Java and Spring Boot. 
 
@@ -10,6 +10,8 @@ In IntelliJ, your run configuration should look like this:
 ![](src/main/resources/images/configuration.PNG)
 
 Run Application.java
+
+Start your Redis server (if you are on Windows, follow the instructions at https://redislabs.com/blog/redis-on-windows-10/)
 
 In your browser, open http://localhost:8080. You should see this:
 ![](src/main/resources/images/ui.PNG)

@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-    private static final String TAG = "[Controller]";
 
     @Autowired
     private RedisMessagePublisher redisMessagePublisher;
 
     @RequestMapping(value = "/msg", produces = "application/json", method = RequestMethod.POST)
     public MessageResponse sendMessage(@RequestBody Message message) {
-        logger.info("{} POST /msg {}", TAG, message);
+        logger.info("POST /msg {}", message);
         return redisMessagePublisher.publish(message);
     }
 }
